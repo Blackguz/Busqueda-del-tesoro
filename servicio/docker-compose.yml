@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: desafio_ciberseguridad
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    container_name: desafio_ciberseguridad_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: desafio
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin_password
+    volumes:
+      - ./database.sql:/docker-entrypoint-initdb.d/database.sql
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
